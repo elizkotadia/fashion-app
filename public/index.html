@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wardrobe & Outfit Suggester</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen font-['Inter']">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">Digital Wardrobe</h1>
+            <p class="text-xl text-gray-600">Your personal outfit suggester for every occasion</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Add Item Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Add New Item</h2>
+                    <form id="addItemForm" class="space-y-6">
+                        <!-- Item Type Section -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900">Item Details</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                                    <select id="type" name="type" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="">Select type</option>
+                                        <optgroup label="Indian Wear">
+                                            <option value="Saree">Saree</option>
+                                            <option value="Blouse">Blouse</option>
+                                            <option value="Lehenga">Lehenga</option>
+                                            <option value="Choli">Choli</option>
+                                            <option value="Kurta">Kurta</option>
+                                            <option value="Salwar">Salwar</option>
+                                            <option value="Kurti">Kurti</option>
+                                            <option value="Dupatta">Dupatta</option>
+                                            <option value="Sherwani">Sherwani</option>
+                                            <option value="Churidar">Churidar</option>
+                                        </optgroup>
+                                        <optgroup label="Footwear">
+                                            <option value="Jutti">Jutti</option>
+                                            <option value="Mojari">Mojari</option>
+                                            <option value="Kolhapuri">Kolhapuri</option>
+                                            <option value="Sandals">Sandals</option>
+                                        </optgroup>
+                                        <optgroup label="Accessories">
+                                            <option value="Jewelry">Jewelry</option>
+                                            <option value="Bindi">Bindi</option>
+                                            <option value="Bangles">Bangles</option>
+                                            <option value="Purse">Purse</option>
+                                            <option value="Scarf">Scarf</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="color" class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                    <input type="text" id="color" name="color" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Occasions Section -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900">Occasions</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Wedding Function" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Wedding Function</span>
+                                </label>
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Festival" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Festival</span>
+                                </label>
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Puja/Religious" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Puja/Religious</span>
+                                </label>
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Casual" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Casual</span>
+                                </label>
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Work" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Work</span>
+                                </label>
+                                <label class="inline-flex items-center p-2 rounded-lg hover:bg-gray-50">
+                                    <input type="checkbox" name="occasions" value="Family Gathering" class="form-checkbox h-4 w-4 text-indigo-600">
+                                    <span class="ml-2 text-sm text-gray-700">Family Gathering</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload Section -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900">Add Image</h3>
+                            <div class="space-y-4">
+                                <!-- Camera Preview -->
+                                <div id="cameraPreview" class="hidden">
+                                    <video id="video" class="w-full rounded-lg" autoplay playsinline></video>
+                                    <div class="mt-2 flex justify-center space-x-2">
+                                        <button id="captureBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                            Capture
+                                        </button>
+                                        <button id="stopCameraBtn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                            Stop Camera
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Image Preview -->
+                                <div id="imagePreview" class="hidden">
+                                    <img id="preview" class="w-full rounded-lg" alt="Preview">
+                                </div>
+
+                                <!-- Upload Options -->
+                                <div class="flex space-x-4">
+                                    <button type="button" id="useCameraBtn" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        Use Camera
+                                    </button>
+                                    <button type="button" id="uploadImageBtn" class="flex-1 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                        Upload Image
+                                    </button>
+                                </div>
+
+                                <!-- Hidden File Input -->
+                                <input type="file" id="imageInput" name="image" accept="image/*" class="hidden">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submitBtn" disabled class="w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Add to Wardrobe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Wardrobe and Suggestions -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Wardrobe Display -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-900">Your Wardrobe</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                All Items
+                            </button>
+                            <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                Western
+                            </button>
+                            <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                Indian
+                            </button>
+                        </div>
+                    </div>
+                    <div id="wardrobe-gallery" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <!-- Outfit Suggestion -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Get Outfit Suggestions</h2>
+                    <div class="flex space-x-4 mb-6">
+                        <select id="occasionSelect" class="flex-1 rounded-xl border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50">
+                            <option value="">Select an occasion</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Work">Work</option>
+                            <option value="Family Gathering">Family Gathering</option>
+                            <option value="Puja/Religious">Puja/Religious</option>
+                            <option value="Festival">Festival</option>
+                            <option value="Wedding Function">Wedding Function</option>
+                        </select>
+                        <button id="suggestButton" class="bg-indigo-600 text-white py-2 px-6 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                            Suggest Outfit
+                        </button>
+                    </div>
+                    <div id="suggestion-display" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Suggestions will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
